@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Library - Profile</title>
+    <!-- 공통 CSS 파일 연동 -->
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <!-- 상단 헤더 영역 -->
+    <header class="header-container">
+      <div class="logo-area">
+        <h1>結</h1>
+      </div>
+      <div class="profile-area">
+        <div class="profile-icon"></div>
+      </div>
+    </header>
+
+    <!-- 내비게이션 바 (Profile 활성화) -->
+    <nav class="nav-container">
+      <a href="home.html" class="nav-item">Home</a>
+      <a href="explore.html" class="nav-item">Explore</a>
+      <a href="MyLibrary.html" class="nav-item">My Library</a>
+      <a href="records.html" class="nav-item">Records</a>
+      <a href="Profile.html" class="nav-item active">Profile</a>
+    </nav>
+
+    <!-- 메인 콘텐츠 영역 -->
+    <main class="main-container profile-layout">
+      <h2>Profile</h2>
+
+      <!-- 프로필 정보 카드 -->
+      <section class="profile-card">
+        <div class="profile-large-icon"></div>
+        <div class="profile-user-info">
+          <h3 class="username">사용자 이름</h3>
+          <p class="user-email">user@example.com</p>
+        </div>
+      </section>
+
+      <!-- 독서 통계 섹션 -->
+      <section class="section-block stats-overview-section">
+        <h3>독서 통계</h3>
+        <div class="stats-card-grid">
+          <div class="stat-box">
+            <span class="stat-label">올해 읽은 책</span>
+            <span class="stat-value">0권</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">총 독서 시간</span>
+            <span class="stat-value">0시간</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">작성한 기록</span>
+            <span class="stat-value">0개</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 푸터 영역 -->
+    <footer class="footer-container">
+      <p>개발자 이메일: example@email.com</p>
+    </footer>
+  </body>
+</html>

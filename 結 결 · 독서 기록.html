@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>結 결 · 독서 기록</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        --bg: #f8f6f4;
+        --fg: #4a524e;
+        --sage: #8f9b94;
+        --soft: #e0ddd6;
+        --chip: #efefef;
+        --avatar: #bfcac4;
+        --wood: #b9a58d;
+        --wood2: #a08c74;
+        --white: #fff;
+        color-scheme: light;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #1f2321;
+          --fg: #d9dedb;
+          --sage: #6f7c75;
+          --soft: #2f3532;
+          --chip: #2a2f2d;
+          --avatar: #53605a;
+          --wood: #6b5a47;
+          --wood2: #55473a;
+          --white: #2a2f2d;
+          color-scheme: dark;
+        }
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font:
+          14px/1.5 "Noto Sans KR",
+          system-ui,
+          sans-serif;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px 6px;
+      }
+      .logo {
+        width: 44px;
+        height: 48px;
+        background: var(--sage);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-size: 24px;
+        cursor: pointer;
+        border: 0;
+      }
+      .avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: var(--avatar);
+        border: 0;
+        cursor: pointer;
+      }
+      nav {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        padding: 4px 0 8px;
+        border-bottom: 1px solid var(--sage);
+        font:
+          500 13px "Josefin Sans",
+          sans-serif;
+      }
+      nav a {
+        color: var(--fg);
+        text-decoration: none;
+      }
+      nav a.on {
+        font-weight: 700;
+      }
+      main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 16px 24px 48px;
+      }
+      h3 {
+        font-size: 13px;
+        margin: 16px 0 8px;
+      }
+      .bar {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        margin: 8px 0 16px;
+      }
+      .search {
+        display: flex;
+        align-items: center;
+        background: var(--chip);
+        border-radius: 20px;
+        padding: 4px 12px;
+        width: min(320px, 100%);
+      }
+      .search input {
+        flex: 1;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        outline: 0;
+        padding: 4px;
+      }
+      .search button {
+        border: 0;
+        background: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: inherit;
+      }
+      .row {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        background: var(--soft);
+        padding: 16px;
+        scrollbar-width: thin;
+      }
+      .cover {
+        position: relative;
+        width: 96px;
+        aspect-ratio: 2/3;
+        flex: none;
+        background: var(--c, #9aa79f);
+        color: #fff;
+        border-radius: 2px 5px 5px 2px;
+        box-shadow:
+          inset 4px 0 0 rgba(0, 0, 0, 0.15),
+          2px 3px 6px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        align-items: flex-end;
+        padding: 8px;
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+      .cover img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .cover.sm {
+        width: 56px;
+      }
+      .cover.sm span {
+        display: none;
+      }
+      .two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 600px) {
+        .two {
+          grid-template-columns: 1fr;
+        }
+      }
+      .box {
+        background: var(--soft);
+        min-height: 130px;
+        padding: 12px;
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+      .stat {
+        display: flex;
+        align-items: flex-end;
+        gap: 6px;
+        height: 90px;
+      }
+      .stat i {
+        flex: 1;
+        background: var(--sage);
+        display: block;
+        min-height: 4px;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 600px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+      }
+      aside {
+        background: var(--chip);
+        padding: 10px;
+        font-size: 13px;
+        align-self: start;
+      }
+      select,
+      textarea,
+      .in {
+        background: var(--chip);
+        color: inherit;
+        border: 0;
+        padding: 8px 10px;
+        font: inherit;
+        border-radius: 4px;
+        width: 100%;
+      }
+      .shelf {
+        margin-bottom: 8px;
+      }
+      .books {
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+        padding: 0 14px;
+        min-height: 150px;
+        flex-wrap: nowrap;
+      }
+      .board {
+        height: 14px;
+        background: linear-gradient(var(--wood), var(--wood2));
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 2px;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      .tabs a {
+        cursor: pointer;
+      }
+      .tabs a.on {
+        font-weight: 700;
+        text-decoration: underline;
+      }
+      .item {
+        display: flex;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--soft);
+      }
+      .item small {
+        color: var(--sage);
+      }
+      .btn {
+        background: var(--sage);
+        color: #fff;
+        border: 0;
+        padding: 8px 14px;
+        border-radius: 4px;
+        cursor: pointer;
+        font: inherit;
+      }
+      .link {
+        background: none;
+        border: 0;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+      }
+      .res {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 20px 12px;
+        justify-items: center;
+      }
+      .res div {
+        text-align: center;
+        font-size: 12px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .card {
+        max-width: 340px;
+        margin: 40px auto;
+        display: grid;
+        gap: 10px;
+      }
+      .note {
+        font-size: 12px;
+        color: var(--sage);
+      }
+      dialog {
+        border: 0;
+        border-radius: 8px;
+        background: var(--bg);
+        color: var(--fg);
+        max-width: 360px;
+        width: 90%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <button class="logo" onclick="go('home')" aria-label="홈">結</button
+      ><button
+        class="avatar"
+        id="av"
+        onclick="goProfile()"
+        aria-label="프로필"
+      ></button>
+    </header>
+    <nav id="nav"></nav>
+    <main id="app"></main>
+    <dialog id="dlg"></dialog>
+    <script>
+      // ===== 데이터 계층: 실제 서비스에서는 아래 두 함수를 자체 서버 프록시(/api/...)로 교체하세요 =====
+      const COLORS = [
+        "#8f9b94",
+        "#a68a7c",
+        "#7c8fa6",
+        "#b09a6b",
+        "#8a7ca6",
+        "#6f9a8f",
+        "#a67c8a",
+        "#7c9aa6",
+      ];
+      const T = [
+        "나의 아저씨의 밤",
+        "달러구트 꿈 백화점",
+        "불편한 편의점",
+        "작은 아씨들",
+        "채식주의자",
+        "아몬드",
+        "어린 왕자",
+        "데미안",
+        "소년이 온다",
+        "숨결이 바람 될 때",
+        "미드나잇 라이브러리",
+        "파친코",
+      ];
+      const A = [
+        "김하늘",
+        "이미예",
+        "김호연",
+        "루이자 올컷",
+        "한강",
+        "손원평",
+        "생텍쥐페리",
+        "헤세",
+        "한강",
+        "폴 칼라니티",
+        "매트 헤이그",
+        "이민진",
+      ];
+      const MOCK = T.map((t, i) => ({
+        id: "b" + i,
+        title: t,
+        author: A[i],
+        cover: "",
+        color: COLORS[i % 8],
+      }));
+      const api = {
+        async bestsellers() {
+          /* return (await fetch('/api/yes24/bestseller')).json(); */ return MOCK.slice(
+            0,
+            5,
+          );
+        },
+        async search(q) {
+          /* return (await fetch('/api/yes24/search?q='+encodeURIComponent(q))).json(); */ q =
+            q.trim().toLowerCase();
+          return q
+            ? MOCK.filter((b) => (b.title + b.author).toLowerCase().includes(q))
+            : [];
+        },
+      };
+      // ===== 상태 =====
+      let S = { user: null, lib: [], rec: [] };
+      try {
+        const r = localStorage.getItem("gyeol");
+        if (r) S = Object.assign(S, JSON.parse(r));
+      } catch (e) {}
+      const save = () => {
+        try {
+          localStorage.setItem("gyeol", JSON.stringify(S));
+        } catch (e) {}
+      };
+      const $ = (s) => document.querySelector(s),
+        esc = (s) =>
+          String(s).replace(
+            /[&<>"]/g,
+            (c) =>
+              ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+          );
+      const book = (id) =>
+        MOCK.find((b) => b.id === id) ||
+        S.lib.find((b) => b.id === id) || {
+          title: "?",
+          author: "",
+          color: "#999",
+        };
+      const cover = (b, cls = "") =>
+        `<div class="cover ${cls}" style="--c:${b.color}" data-id="${b.id}" onclick="openBook('${b.id}')">${b.cover ? `<img src="${esc(b.cover)}" alt="" onerror="this.remove()">` : ""}<span>${esc(b.title)}</span></div>`;
+      const go = (h) => {
+        location.hash = h;
+      };
+      const goProfile = () => go(S.user ? "profile" : "login");
+      // ===== 라우터 =====
+      const routes = { home, explore, library, records, profile, login };
+      async function route() {
+        const h = location.hash.slice(1) || "home";
+        const r = routes[h] ? h : "home";
+        $("#nav").innerHTML = ["home", "explore", "library", "records"]
+          .map(
+            (k, i) =>
+              `<a href="#${k}" class="${k === r ? "on" : ""}">${["Home", "Explore", "My Library", "Records"][i]}</a>`,
+          )
+          .join("");
+        $("#av").style.outline =
+          r === "profile" || r === "login" ? "2px solid var(--sage)" : "0";
+        await routes[r]();
+      }
+      addEventListener("hashchange", route);
+      // ===== 화면 =====
+      async function home() {
+        const bs = await api.bestsellers();
+        const reading = S.lib.filter((b) => b.status === "reading")[0];
+        const wk = [2, 5, 3, 6, 1, 4, 2];
+        $("#app").innerHTML =
+          `<h3>Best Seller</h3><div class="row">${bs.map((b) => cover(b)).join("")}</div>
+ <div class="two"><div><h3>금주 통계</h3><div class="box"><div class="stat" style="flex:1">${wk.map((v) => `<i style="height:${v * 14}px"></i>`).join("")}</div></div></div>
+ <div><h3>읽는 중</h3><div class="box">${reading ? cover(book(reading.id), "sm") + `<div style="flex:1;text-align:center">${esc(S.rec.find((r) => r.id === reading.id && r.type === "문장")?.text || "오늘의 문장을 기록해 보세요")}</div>` : '<span class="note">서재에서 책을 "읽는 중"으로 표시해 보세요</span>'}</div></div></div>`;
+      }
+      async function explore() {
+        $("#app").innerHTML =
+          `<div class="bar"><div class="search"><input id="q" placeholder="검색" aria-label="검색"><button onclick="doSearch()" aria-label="검색">🔍</button></div></div><div id="res"></div>`;
+        $("#q").addEventListener(
+          "keydown",
+          (e) => e.key === "Enter" && doSearch(),
+        );
+      }
+      async function doSearch() {
+        const r = await api.search($("#q").value);
+        $("#res").innerHTML = r.length
+          ? `<div class="res">${r.map((b) => `<div>${cover(b)}<b>${esc(b.title)}</b><span class="note">${esc(b.author)}</span></div>`).join("")}</div>`
+          : '<p class="note" style="text-align:center">검색 결과가 없습니다</p>';
+      }
+      function library() {
+        const L = S.lib,
+          n = (s) => L.filter((b) => b.status === s).length;
+        const f = window._f || "all";
+        const list = L.filter((b) => f === "all" || b.status === f);
+        const rows = [];
+        for (let i = 0; i < list.length; i += 5)
+          rows.push(list.slice(i, i + 5));
+        if (!rows.length) rows.push([]);
+        $("#app").innerHTML = `<div class="layout"><aside><b>나의 서재</b><br>
+ <a class="link" onclick="_f='all';library()">전체 도서: ${L.length}권</a><br><a class="link" onclick="_f='done';library()">완독: ${n("done")}권</a><br><a class="link" onclick="_f='reading';library()">읽는 중: ${n("reading")}권</a></aside>
+ <div><div class="bar" style="margin-top:0"><div class="search"><input id="lq" placeholder="검색" oninput="libFilter()"><span>🔍</span></div>
+ <select style="width:110px" onchange="_f=this.value;library()"><option value="all">※분류</option><option value="done" ${f === "done" ? "selected" : ""}>완독</option><option value="reading" ${f === "reading" ? "selected" : ""}>읽는 중</option></select></div>
+ <div id="shelves">${rows.map((r) => `<div class="shelf"><div class="books">${r.map((b) => cover(book(b.id))).join("") || '<span class="note" style="padding:60px 0">Explore에서 책을 서재에 꽂아 보세요</span>'}</div><div class="board"></div></div>`).join("")}</div></div></div>`;
+      }
+      function libFilter() {
+        const q = $("#lq").value.toLowerCase();
+        document.querySelectorAll("#shelves .cover").forEach((c) => {
+          const b = book(c.dataset.id);
+          c.style.display = (b.title + b.author).toLowerCase().includes(q)
+            ? ""
+            : "none";
+        });
+      }
+      function records() {
+        const t = window._t || "전체";
+        const list = S.rec.filter((r) => t === "전체" || r.type === t);
+        $("#app").innerHTML =
+          `<div style="text-align:right"><button class="link" onclick="writeRec()">+기록 작성</button></div>
+ <div class="bar"><div class="search"><input placeholder="검색"><span>🔍</span></div></div>
+ <div class="tabs">${["전체", "독서 일지", "문장", "독후감"].map((x) => `<a class="${x === t ? "on" : ""}" onclick="_t='${x}';records()">${x === "문장" ? "인상깊은 문장" : x}</a>`).join("|")}</div>
+ ${
+   list
+     .map((r) => {
+       const b = book(r.id);
+       return `<div class="item">${cover(b, "sm")}<div><b>${esc(b.title)}</b> - ${esc(b.author)}<br><small>${r.date} | ${r.type}</small><div>${esc(r.text)}</div></div></div>`;
+     })
+     .join("") || '<p class="note">아직 기록이 없습니다</p>'
+ }`;
+      }
+      function writeRec() {
+        if (!S.user) return go("login");
+        if (!S.lib.length) {
+          alert("먼저 서재에 책을 추가해 주세요");
+          return;
+        }
+        const d = $("#dlg");
+        d.innerHTML = `<div style="display:grid;gap:10px"><select id="rb">${S.lib.map((b) => `<option value="${b.id}">${esc(book(b.id).title)}</option>`).join("")}</select>
+ <select id="rt"><option>독서 일지</option><option>문장</option><option>독후감</option></select><textarea id="rx" rows="4" placeholder="내용"></textarea>
+ <div style="display:flex;gap:8px;justify-content:flex-end"><button class="link" onclick="dlg.close()">취소</button><button class="btn" onclick="addRec()">저장</button></div></div>`;
+        d.showModal();
+      }
+      function addRec() {
+        const text = $("#rx").value.trim();
+        if (!text) return;
+        S.rec.unshift({
+          id: $("#rb").value,
+          type: $("#rt").value,
+          text,
+          date: new Date().toISOString().slice(0, 10).replace(/-/g, "."),
+        });
+        save();
+        dlg.close();
+        records();
+      }
+      function openBook(id) {
+        const b = book(id),
+          mine = S.lib.find((x) => x.id === id),
+          d = $("#dlg");
+        d.innerHTML = `<div style="display:flex;gap:14px">${cover(b, "")}<div><b>${esc(b.title)}</b><br><span class="note">${esc(b.author)}</span><div style="margin-top:12px;display:grid;gap:6px">
+ ${mine ? `<button class="btn" onclick="setStatus('${id}','reading')">읽는 중</button><button class="btn" onclick="setStatus('${id}','done')">완독</button><button class="link" onclick="rmBook('${id}')">서재에서 빼기</button>` : `<button class="btn" onclick="addBook('${id}')">내 서재에 꽂기</button>`}
+ <button class="link" onclick="dlg.close()">닫기</button></div></div></div>`;
+        d.showModal();
+      }
+      function addBook(id) {
+        if (!S.user) {
+          dlg.close();
+          return go("login");
+        }
+        S.lib.push({ id, status: "reading", book: book(id) });
+        save();
+        dlg.close();
+        route();
+      }
+      function setStatus(id, s) {
+        S.lib.find((b) => b.id === id).status = s;
+        save();
+        dlg.close();
+        route();
+      }
+      function rmBook(id) {
+        S.lib = S.lib.filter((b) => b.id !== id);
+        save();
+        dlg.close();
+        route();
+      }
+      function login() {
+        if (S.user) return go("profile");
+        $("#app").innerHTML =
+          `<div class="card"><h2 style="margin:0">로그인</h2><input class="in" id="nm" placeholder="닉네임"><input class="in" type="password" placeholder="비밀번호"><button class="btn" onclick="doLogin()">로그인</button><p class="note">데모용 로그인입니다. 실제 서비스에서는 서버 인증으로 교체하세요.</p></div>`;
+      }
+      function doLogin() {
+        S.user = { name: $("#nm").value.trim() || "독서가" };
+        save();
+        go("profile");
+      }
+      function profile() {
+        if (!S.user) return go("login");
+        const n = S.lib.filter((b) => b.status === "done").length;
+        $("#app").innerHTML =
+          `<div class="card"><div class="avatar" style="width:80px;height:80px;cursor:default"></div><h2 style="margin:0">${esc(S.user.name)}</h2><span>서재 ${S.lib.length}권 · 완독 ${n}권 · 기록 ${S.rec.length}개</span><button class="btn" onclick="S.user=null;save();go('home')">로그아웃</button></div>`;
+      }
+      window.dlg = $("#dlg");
+      route();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Library - My Library</title>
+    <!-- 공통 CSS 파일 연동 -->
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <!-- 상단 헤더 영역 -->
+    <header class="header-container">
+      <div class="logo-area">
+        <h1>結</h1>
+      </div>
+      <div class="profile-area">
+        <div class="profile-icon"></div>
+      </div>
+    </header>
+
+    <!-- 내비게이션 바 (My Library 활성화) -->
+    <nav class="nav-container">
+      <a href="home.html" class="nav-item">Home</a>
+      <a href="explore.html" class="nav-item">Explore</a>
+      <a href="MyLibrary.html" class="nav-item active">My Library</a>
+      <a href="records.html" class="nav-item">Records</a>
+      <a href="Profile.html" class="nav-item">Profile</a>
+    </nav>
+
+    <!-- 메인 콘텐츠 영역 -->
+    <main class="main-container library-layout">
+      <!-- 왼쪽: 나의 서재 카테고리 박스 -->
+      <aside class="library-sidebar">
+        <div class="sidebar-header">
+          <h3>나의 서재</h3>
+          <span class="toggle-btn">-</span>
+        </div>
+        <ul class="sidebar-menu">
+          <li>전체 도서: 0권</li>
+          <li>완독: 0권</li>
+          <li>읽는 중: 0권</li>
+        </ul>
+      </aside>
+
+      <!-- 오른쪽: 검색 및 분류 영역 -->
+      <section class="library-content">
+        <div class="library-top-bar">
+          <!-- 검색 바 -->
+          <div class="search-input-wrapper">
+            <input
+              type="text"
+              id="library-search"
+              name="library-search"
+              placeholder="검색"
+            />
+            <button type="submit" class="search-btn">🔍</button>
+          </div>
+          <!-- 분류 버튼 -->
+          <div class="filter-dropdown">
+            <button type="button" class="filter-btn">※ 분류</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 푸터 영역 -->
+    <footer class="footer-container">
+      <p>개발자 이메일: example@email.com</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Library - Home</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <!-- 1. 헤더 영역 -->
+    <header class="header-container">
+      <div class="logo-area">
+        <h1>結</h1>
+      </div>
+      <div class="profile-area">
+        <div class="profile-icon"></div>
+      </div>
+    </header>
+
+    <!-- 2. 내비게이션 바 -->
+    <nav class="nav-container">
+      <a href="home.html" class="nav-item active">Home</a>
+      <a href="explore.html" class="nav-item">Explore</a>
+      <a href="MyLibrary.html" class="nav-item">My Library</a>
+      <a href="records.html" class="nav-item">Records</a>
+      <a href="Profile.html" class="nav-item">Profile</a>
+    </nav>
+
+    <!-- 3. 메인 콘텐츠 영역 -->
+    <main class="main-container">
+      <!-- 베스트셀러 섹션 -->
+      <section class="section-block">
+        <h2>실시간 베스트셀러</h2>
+        <div id="bestsellerContainer" class="book-list-wrapper">
+          <p class="placeholder-text">베스트셀러를 불러오는 중입니다...</p>
+        </div>
+      </section>
+
+      <!-- 하단 통계 및 읽는 중 영역 -->
+      <div class="bottom-grid-wrapper">
+        <section class="stats-section section-block">
+          <h2>독서 통계</h2>
+          <div class="stats-box"></div>
+        </section>
+
+        <section class="reading-section section-block">
+          <h2>지금 읽고 있는 책</h2>
+          <div class="reading-content-wrapper">
+            <div class="book-card small"></div>
+            <div class="today-quote-box">오늘의 한 줄 문장</div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- 4. 서재 추가 팝업 모달 (기본적으로 숨겨짐) -->
+    <div id="libraryModal" class="modal-overlay">
+      <div class="modal-content">
+        <h3 id="modalBookTitle">책 제목</h3>
+        <p id="modalBookAuthor">저자 정보</p>
+        <p class="modal-instruction">내 서재의 어디에 저장할까요?</p>
+
+        <div class="modal-options">
+          <button class="modal-option-btn" data-status="wish">
+            ❤️ 읽고 싶은 책 (위시)
+          </button>
+          <button class="modal-option-btn" data-status="reading">
+            📖 읽는 중인 책
+          </button>
+          <button class="modal-option-btn" data-status="completed">
+            ✅ 다 읽은 책
+          </button>
+        </div>
+
+        <button id="closeModalBtn" class="modal-close-btn">취소</button>
+      </div>
+    </div>
+
+    <!-- 푸터 영역 -->
+    <footer class="footer-container">
+      <p>개발자 이메일: example@email.com</p>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>結 - 개인 맞춤형 독서 관리</title>
+    <link rel="stylesheet" href="test.css" />
+  </head>
+  <body>
+    <header>
+      <h1>結</h1>
+      <div class="profile-icon" id="profile-btn"></div>
+    </header>
+
+    <nav>
+      <p><a href="#" data-target="home" class="nav-link active">Home</a></p>
+      <p><a href="#" data-target="explore" class="nav-link">Explore</a></p>
+      <p><a href="#" data-target="library" class="nav-link">My Library</a></p>
+      <p><a href="#" data-target="records" class="nav-link">Records</a></p>
+      <p><a href="#" data-target="profile" class="nav-link">Profile</a></p>
+    </nav>
+
+    <main>
+      <!-- Home 섹션 -->
+      <section id="home" class="page active-page">
+        <h2>Best Seller</h2>
+        <div class="bestseller-container">
+          <div class="book-card">책 1</div>
+          <div class="book-card">책 2</div>
+          <div class="book-card">책 3</div>
+          <div class="book-card">책 4</div>
+          <div class="book-card">책 5</div>
+        </div>
+        <div class="home-grid">
+          <div class="card-box">
+            <h3>금주 통계</h3>
+            <p>이번 주 총 독서 시간: 3시간 30분</p>
+          </div>
+          <div class="card-box">
+            <h3>읽는 중</h3>
+            <div class="reading-now">
+              <div class="book-card-small">책</div>
+              <div class="quote-box">
+                <h4>오늘의 문장</h4>
+                <p>"결은 잇고 맺는 과정에서 비로소 완성된다."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Explore 섹션 -->
+      <section id="explore" class="page">
+        <h2>Explore</h2>
+        <form class="search-form" id="search-form">
+          <input
+            type="text"
+            id="explore-input"
+            name="explore"
+            placeholder="검색"
+          />
+          <button type="submit" class="search-btn" aria-label="검색">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+        </form>
+        <div class="search-results" id="search-results">
+          <!-- 검색 결과가 동적으로 표시됩니다 -->
+        </div>
+      </section>
+
+      <!-- My Library 섹션 -->
+      <section id="library" class="page">
+        <div class="library-layout">
+          <aside class="library-sidebar">
+            <h3>나의 서재</h3>
+            <ul>
+              <li>전체 도서: <span id="total-count">0</span>권</li>
+              <li>완독: <span id="completed-count">0</span>권</li>
+              <li>읽는 중: <span id="reading-count">1</span>권</li>
+            </ul>
+          </aside>
+          <div class="library-content">
+            <div class="library-top-bar">
+              <input type="text" placeholder="검색" class="lib-search" />
+              <button class="filter-btn">※분류</button>
+            </div>
+            <div class="book-grid" id="library-book-grid">
+              <!-- 서재 도서 목록 -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Records 섹션 -->
+      <section id="records" class="page">
+        <div class="records-header">
+          <h2>Records</h2>
+          <button id="open-record-modal" class="primary-btn">
+            + 기록 작성
+          </button>
+        </div>
+        <div class="record-tabs">
+          <button class="tab-btn active" data-filter="all">전체</button>
+          <button class="tab-btn" data-filter="journal">독서 일지</button>
+          <button class="tab-btn" data-filter="quote">인상깊은 문장</button>
+          <button class="tab-btn" data-filter="review">독후감</button>
+        </div>
+        <div class="record-list" id="record-list-container">
+          <!-- 기록 항목들 -->
+          <div class="record-item">
+            <div class="record-thumb">책</div>
+            <div class="record-info">
+              <h4>어린왕자 - 생텍쥐페리</h4>
+              <p class="record-date">2026-06-01 | 독후감</p>
+              <p class="record-desc">가장 중요한 것은 눈에 보이지 않는다...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Profile 섹션 -->
+      <section id="profile" class="page">
+        <h2>Profile</h2>
+        <div class="profile-card">
+          <div class="profile-avatar"></div>
+          <div class="profile-info">
+            <h3>임수진</h3>
+            <p>목표: 올해 30권 완독하기</p>
+            <div class="stats-summary">
+              <p>총 읽은 책: 12권</p>
+              <p>작성한 기록: 24개</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 기록 작성 모달 -->
+    <div id="record-modal" class="modal">
+      <div class="modal-content">
+        <h3>새 독서 기록 작성</h3>
+        <form id="new-record-form">
+          <input
+            type="text"
+            id="rec-title"
+            placeholder="도서명 - 저자"
+            required
+          />
+          <select id="rec-type">
+            <option value="journal">독서 일지</option>
+            <option value="quote">인상깊은 문장</option>
+            <option value="review">독후감</option>
+          </select>
+          <textarea
+            id="rec-content"
+            placeholder="내용을 입력하세요..."
+            required
+          ></textarea>
+          <div class="modal-actions">
+            <button type="button" id="close-modal">취소</button>
+            <button type="submit" class="primary-btn">저장</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer>개발자 이메일: sujin@example.com</footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>

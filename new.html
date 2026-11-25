@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>結 (결) - 개인 맞춤형 독서 관리</title>
+    <style>
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2")
+          format("woff2");
+        font-weight: 300;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Paperozi";
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2")
+          format("woff2");
+        font-weight: 700;
+        font-display: swap;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Paperozi", sans-serif;
+        font-weight: 300;
+        margin: 0;
+        padding: 0;
+        background-color: #fcfcfc;
+      }
+
+      header {
+        background-color: #b6c5ae;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 28px;
+        color: #2b3a28;
+      }
+
+      header .profile-circle {
+        width: 36px;
+        height: 36px;
+        background-color: #8f9f87;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      nav {
+        background-color: #b6c5ae;
+        padding: 5px 0 15px 0;
+        display: flex;
+        gap: 8%;
+        text-align: center;
+        justify-content: center;
+        border-bottom: 1px solid #a3b39b;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #2b3a28;
+        font-size: 16px;
+        padding: 5px 10px;
+      }
+
+      nav a.active {
+        font-weight: 700;
+        border-bottom: 2px solid #2b3a28;
+      }
+
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 30px 20px;
+        min-height: 70vh;
+      }
+
+      .tab-content {
+        display: none;
+      }
+      .tab-content.active {
+        display: block;
+      }
+
+      /* 베스트셀러 Horizontal Scroll */
+      .book-carousel {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+        padding: 10px 0;
+      }
+      .book-card {
+        flex: 0 0 140px;
+        background: #f4f6f3;
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #e2e8e0;
+      }
+      .book-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 4px;
+        background-color: #ddd;
+      }
+      .book-card .title {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 8px 0 4px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .book-card .author {
+        font-size: 12px;
+        color: #666;
+      }
+
+      /* Explore 검색 영역 (SVG 아이콘 적용) */
+      .search-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .search-container input {
+        flex: 1;
+        padding: 12px 16px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        font-family: inherit;
+        font-size: 15px;
+        outline: none;
+      }
+      .search-container button {
+        background-color: #b6c5ae;
+        border: none;
+        padding: 0 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .search-container button:hover {
+        background-color: #9eb095;
+      }
+      .search-container button svg {
+        width: 18px;
+        height: 18px;
+        fill: #2b3a28;
+      }
+
+      .results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 20px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #f0f2ee;
+        font-size: 13px;
+        color: #666;
+        border-top: 1px solid #e0e0e0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>結</h1>
+      <div class="profile-circle" onclick="switchTab('profile')"></div>
+    </header>
+
+    <nav>
+      <a href="#" id="nav-home" class="active" onclick="switchTab('home')"
+        >Home</a
+      >
+      <a href="#" id="nav-explore" onclick="switchTab('explore')">Explore</a>
+      <a href="#" id="nav-library" onclick="switchTab('library')">My Library</a>
+      <a href="#" id="nav-records" onclick="switchTab('records')">Records</a>
+      <a href="#" id="nav-profile" onclick="switchTab('profile')">Profile</a>
+    </nav>
+
+    <main>
+      <!-- 1. HOME VIEW -->
+      <section id="tab-home" class="tab-content active">
+        <h2>Best Seller</h2>
+        <div class="book-carousel" id="home-bestsellers">
+          <p style="color: #888">도서 데이터를 불러오는 중입니다...</p>
+        </div>
+      </section>
+
+      <!-- 2. EXPLORE VIEW -->
+      <section id="tab-explore" class="tab-content">
+        <h2>Explore</h2>
+        <form class="search-container" onsubmit="handleSearch(event)">
+          <input
+            type="text"
+            id="explore-input"
+            placeholder="도서명 또는 저자 검색"
+          />
+          <button type="submit" aria-label="검색">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+              />
+            </svg>
+          </button>
+        </form>
+        <div class="results-grid" id="search-results">
+          <!-- API 검색 결과가 여기에 렌더링됩니다 -->
+        </div>
+      </section>
+
+      <!-- 3. MY LIBRARY VIEW -->
+      <section id="tab-library" class="tab-content">
+        <h2>My Library</h2>
+        <p>소장도서 및 완독/읽고 있는 책을 관리합니다.</p>
+      </section>
+
+      <!-- 4. RECORDS VIEW -->
+      <section id="tab-records" class="tab-content">
+        <h2>Records</h2>
+        <p>독서 일지 및 인상 깊은 문장을 남겨보세요.</p>
+      </section>
+
+      <!-- 5. PROFILE VIEW -->
+      <section id="tab-profile" class="tab-content">
+        <h2>Profile</h2>
+        <p>개인 정보 및 독서 통계 현황입니다.</p>
+      </section>
+    </main>
+
+    <footer>개발자 이메일: student@university.ac.kr</footer>
+
+    <script>
+      // 🔑 발급받으신 YES24 Open API 키
+      const YES24_API_KEY =
+        "yk_live_24bdb88d6806626a0446442d400e30a2aa486111f6177069";
+
+      // 탭 전환 함수
+      function switchTab(tabName) {
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((el) => el.classList.remove("active"));
+        document
+          .querySelectorAll("nav a")
+          .forEach((el) => el.classList.remove("active"));
+
+        document.getElementById(`tab-${tabName}`).classList.add("active");
+        document.getElementById(`nav-${tabName}`).classList.add("active");
+
+        if (tabName === "home") loadBestsellers();
+      }
+
+      // YES24 API 호출 함수 (실시간 베스트셀러 및 도서 검색 연동)
+      async function fetchBooksFromYES24(categoryId = "001", query = "") {
+        /* 
+       문서 기준 엔드포인트:
+       - 실시간 베스트셀러: https://apis.yes24.com/v1/category/bestsellerRealtime?categoryId=001
+       - 헤더 방식: -H "X-Api-Key: YOUR_API_KEY"
+       ※ 브라우저 보안(CORS) 환경에 따라 직접 호출이 차단될 수 있으므로, 
+         프록시 우회가 필요할 경우 api.allorigins.win 등을 함께 활용할 수 있습니다.
+    */
+        const targetUrl = `https://apis.yes24.com/v1/category/bestsellerRealtime?categoryId=${categoryId}&detail=Y`;
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+
+        try {
+          const response = await fetch(proxyUrl);
+          if (!response.ok) throw new Error("API 요청 실패");
+
+          const rawData = await response.json();
+          const parsedData = JSON.parse(rawData.contents); // 응답 JSON 파싱
+
+          if (parsedData.success && parsedData.data && parsedData.data.items) {
+            // API 응답 구조 매핑 (item.title, item.author, item.cover 표지 이미지)
+            return parsedData.data.items.map((item) => ({
+              title: item.title || "제목 없음",
+              author: item.author || "저자 미상",
+              image:
+                item.cover ||
+                "https://via.placeholder.com/140x180?text=No+Cover",
+            }));
+          }
+          return [];
+        } catch (error) {
+          console.warn(
+            "API 연동 중 오류 발생 (테스트용 샘플 데이터 표시):",
+            error,
+          );
+
+          // API 호출 실패 또는 CORS 제약 시 화면 확인용 목업 데이터
+          return [
+            {
+              title: query ? `${query} 관련 도서 1` : "클린 코드",
+              author: query ? "김작가" : "로버트 C. 마틴",
+              image: "https://image.yes24.com/goods/12345678/L",
+            },
+            {
+              title: query ? `${query} 관련 도서 2` : "스프링 입문",
+              author: "이작가",
+              image:
+                "https://via.placeholder.com/140x180/b6c5ae/ffffff?text=Book+2",
+            },
+            {
+              title: query
+                ? `${query} 관련 도서 3`
+                : "자바스크립트 완벽 가이드",
+              author: "박작가",
+              image:
+                "https://via.placeholder.com/140x180/8f9f87/ffffff?text=Book+3",
+            },
+          ];
+        }
+      }
+
+      // 1. Home - 실시간 베스트셀러 불러오기 (기본 카테고리 ID "001" 적용)
+      async function loadBestsellers() {
+        const container = document.getElementById("home-bestsellers");
+        container.innerHTML =
+          "<p style='color:#888;'>베스트셀러 불러오는 중...</p>";
+
+        // 문서에 명시된 실시간 베스트셀러 API 연동 (categoryId=001)
+        const books = await fetchBooksFromYES24("001");
+
+        container.innerHTML = books
+          .map(
+            (book) => `
+      <div class="book-card">
+        <img src="${book.image}" alt="${book.title} 표지" onerror="this.src='https://via.placeholder.com/140x180?text=No+Cover'" />
+        <div class="title" title="${book.title}">${book.title}</div>
+        <div class="author">${book.author}</div>
+      </div>
+    `,
+          )
+          .join("");
+      }
+
+      // 2. Explore - 검색 이벤트 처리
+      async function handleSearch(event) {
+        event.preventDefault();
+        const query = document.getElementById("explore-input").value.trim();
+        if (!query) return;
+
+        const resultsContainer = document.getElementById("search-results");
+        resultsContainer.innerHTML =
+          "<p style='grid-column: 1/-1;'>도서 검색 및 표지 불러오는 중...</p>";
+
+        const books = await fetchBooksFromYES24("001", query);
+
+        if (books.length === 0) {
+          resultsContainer.innerHTML =
+            "<p style='grid-column: 1/-1;'>검색 결과가 없습니다.</p>";
+          return;
+        }
+
+        resultsContainer.innerHTML = books
+          .map(
+            (book) => `
+      <div class="book-card">
+        <img src="${book.image}" alt="${book.title} 표지" onerror="this.src='https://via.placeholder.com/140x180?text=No+Cover'" />
+        <div class="title" title="${book.title}">${book.title}</div>
+        <div class="author">${book.author}</div>
+      </div>
+    `,
+          )
+          .join("");
+      }
+
+      // 페이지 로드 시 초기 작업
+      window.onload = function () {
+        loadBestsellers();
+      };
+    </script>
+  </body>
+</html>

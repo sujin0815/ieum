@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Library - Records</title>
+    <!-- 공통 CSS 파일 연동 -->
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <!-- 상단 헤더 영역 -->
+    <header class="header-container">
+      <div class="logo-area">
+        <h1>結</h1>
+      </div>
+      <div class="profile-area">
+        <div class="profile-icon"></div>
+      </div>
+    </header>
+
+    <!-- 내비게이션 바 (Records 활성화) -->
+    <nav class="nav-container">
+      <a href="home.html" class="nav-item">Home</a>
+      <a href="explore.html" class="nav-item">Explore</a>
+      <a href="MyLibrary.html" class="nav-item">My Library</a>
+      <a href="records.html" class="nav-item active">Records</a>
+      <a href="Profile.html" class="nav-item">Profile</a>
+    </nav>
+
+    <!-- 메인 콘텐츠 영역 -->
+    <main class="main-container records-layout">
+      <!-- 상단 컨트롤 영역 (기록 작성 버튼 및 검색) -->
+      <div class="records-top-bar">
+        <button type="button" class="write-btn">+ 기록 작성</button>
+        <div class="search-input-wrapper">
+          <input
+            type="text"
+            id="records-search"
+            name="records-search"
+            placeholder="검색"
+          />
+          <button type="submit" class="search-btn">🔍</button>
+        </div>
+      </div>
+
+      <!-- 필터 탭 영역 -->
+      <div class="records-filter-tabs">
+        <button type="button" class="tab-btn active">전체</button>
+        <button type="button" class="tab-btn">독서 일지</button>
+        <button type="button" class="tab-btn">인상깊은 문장</button>
+        <button type="button" class="tab-btn">독후감</button>
+      </div>
+
+      <!-- 기록 카드 리스트 영역 -->
+      <div class="records-list-wrapper">
+        <div class="record-card">
+          <div class="record-book-img">책</div>
+          <div class="record-info">
+            <h3 class="record-title">도서명 - 저자</h3>
+            <p class="record-date-type">날짜 | 독후감</p>
+          </div>
+        </div>
+        <!-- 추가 기록 카드 예시 -->
+        <div class="record-card">
+          <div class="record-book-img">책</div>
+          <div class="record-info">
+            <h3 class="record-title">도서명 - 저자</h3>
+            <p class="record-date-type">날짜 | 독서 일지</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 푸터 영역 -->
+    <footer class="footer-container">
+      <p>개발자 이메일: example@email.com</p>
+    </footer>
+  </body>
+</html>

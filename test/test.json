@@ -1,0 +1,29 @@
+{
+  "totalCount": 3,
+  "items": [
+    {
+      "itemId": 1,
+      "title": "클린 코드 (Clean Code)",
+      "author": "로버트 C. 마틴",
+      "publisher": "인사이트",
+      "salePrice": 29700,
+      "cover": "https://image.yes24.com/goods/11681152/L"
+    },
+    {
+      "itemId": 2,
+      "title": "Do it! 점프 투 파이썬",
+      "author": "박응용",
+      "publisher": "이지스퍼블리싱",
+      "salePrice": 19800,
+      "cover": "https://image.yes24.com/goods/117411894/L"
+    },
+    {
+      "itemId": 3,
+      "title": "모순 (양귀자 소설)",
+      "author": "양귀자",
+      "publisher": "쓰다",
+      "salePrice": 11700,
+      "cover": "https://image.yes24.com/goods/89410729/L"
+    }
+  ]
+}

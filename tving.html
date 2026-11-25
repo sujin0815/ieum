@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="tving.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <!-- 상단 레이어: 로고 및 우측 메뉴 -->
+      <div class="nav-top">
+        <div class="logo">TVING</div>
+        <div class="nav-right">
+          <button class="login-btn">로그인</button>
+          <button class="search-btn" aria-label="검색">
+            <!-- 돋보기 아이콘 (SVG) -->
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+          </button>
+          <div class="profile-avatar"></div>
+        </div>
+      </div>
+
+      <!-- 하단 레이어: 카테고리 메뉴 -->
+      <nav class="nav-menu">
+        <a href="#" class="active">드라마</a>
+        <a href="#">예능</a>
+        <a href="#">영화</a>
+        <a href="#">스포츠</a>
+        <a href="#">애니</a>
+        <a href="#">뉴스</a>
+        <a href="#">라이브</a>
+        <a href="#">쇼츠</a>
+      </nav>
+    </header>
+  </body>
+</html>
